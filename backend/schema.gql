@@ -19,15 +19,31 @@ type User {
   otp: OTP
 }
 
+type CategoryDto {
+  _id: String!
+  name: String!
+  createdAt: DateTime!
+  updatedAt: DateTime
+}
+
 type Query {
   user(userId: String!): User
   users(userIds: [String!]!): [User]!
+  categories: [CategoryDto!]!
+  findCategory(input: FindCategoryInput!): [CategoryDto!]!
+}
+
+input FindCategoryInput {
+  _id: String!
 }
 
 type Mutation {
   createUser(createUserData: CreateUserInput!): User!
   updateUser(updateUserData: UpdateUserInput!): User!
   deleteUser(deleteUserData: DeleteUserInput!): User!
+  createCategory(input: CategoryInput!): CategoryDto!
+  updateCategory(input: UpdateCategoryInput!): CategoryDto!
+  deleteCategory(input: FindCategoryInput!): String!
 }
 
 input CreateUserInput {
@@ -41,4 +57,13 @@ input UpdateUserInput {
 
 input DeleteUserInput {
   userId: String!
+}
+
+input CategoryInput {
+  name: String!
+}
+
+input UpdateCategoryInput {
+  _id: String!
+  name: String!
 }
